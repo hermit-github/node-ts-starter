@@ -1,0 +1,16 @@
+
+services:
+  backend:
+    build:
+      context: .
+    ports:
+      - 8080:8080
+      - 9229:9229
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/.pnpm-store
+      - /usr/src/app/node_modules
+    command: pnpm start:docker
+    environment:
+      DATABASE_URL: postgres://postgres@postgres/webapp_dev
+      PORT: 8080

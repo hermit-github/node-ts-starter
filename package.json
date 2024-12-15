@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "rimraf dist && swc ./src -d dist",
-    "start": "node dist/src/index.js"
+    "start": "node dist/src/index.js",
+    "start:docker": "pnpm build && node --inspect=0.0.0.0 dist/src/index.js",
+    "watch": "watchy --no-init-spawn --debounce 1 -w src -- docker-compose restart backend"
   },
   "keywords": [],
   "author": "",
@@ -26,12 +28,12 @@
     "@tsconfig/node20": "^20.1.4",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
-    "@types/helmet": "^4.0.0",
     "@types/morgan": "^1.9.9",
     "@types/node": "^22.10.2",
     "@typescript-eslint/eslint-plugin": "^8.18.0",
     "@typescript-eslint/parser": "^8.18.0",
     "eslint": "^9.17.0",
-    "rimraf": "^6.0.1"
+    "rimraf": "^6.0.1",
+    "watchy": "^0.10.2"
   }
 }
