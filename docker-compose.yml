@@ -1,11 +1,24 @@
 
 services:
+  postgres:
+      image: postgres:15-alpine
+      volumes:
+      - ./data/db:/var/lib/postgresql/data
+      ports:
+        - 5432:5432  # enables connecting locally via psql
+      environment:
+        POSTGRES_DB: webapp_dev
+        POSTGRES_HOST_AUTH_METHOD: trust
+
   backend:
     build:
       context: .
+    depends_on:
+      - postgres
     ports:
       - 8080:8080
       - 9229:9229
+      - 5555:5555
     volumes:
       - .:/usr/src/app
       - /usr/src/app/.pnpm-store
